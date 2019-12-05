@@ -1,4 +1,4 @@
-# ShipsDetection Exploring neural network architectures for locating ships in images
+# ShipsDetection: Exploring neural network architectures for locating ships in images
 ### Executable Files
 For a quick demo, run the Jupyter Notebook `Demo.ipynb`.  
 For a full training on the dataset, run the Jupyter Notebook `train.ipynb`.
@@ -30,12 +30,12 @@ University of California San Diego
 k1ye@eng.ucsd.edu  
 A53309088 
 
-Pu Cheng  
+Pu Cheng
 University of California San Diego    
 pucheng@eng.ucsd.edu
 A53306940
 
-Zhenyan Wang  
+Zhenyan Wang
 University of California San Diego  
 zhw028@ucsd.edu 
 A53300836
