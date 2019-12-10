@@ -806,23 +806,23 @@ def train(lr, model, criterion, train_loader, valid_loader, validation, init_opt
         random.seed()
         tq = tqdm(total=len(train_loader) *  BATCH_SIZE)
         tq.set_description('Epoch {}, lr {}'.format(epoch, lr))
-        losses = []
+        loss = []
         tl = train_loader
         try:
             mean_loss = 0
             for i, (inputs, targets) in enumerate(tl):
                 inputs, targets = variable(inputs), variable(targets)
                 outputs = model(inputs)
-                loss = criterion(outputs, targets)
+                loss_temp = criterion(outputs, targets)
                 optimizer.zero_grad()
                 batch_size = inputs.size(0)
-                loss.backward()
+                loss_temp.backward()
                 optimizer.step()
                 step += 1
                 tq.update(batch_size)
-                losses.append(loss.data[0])
-                mean_loss = np.mean(losses[-report_each:])
-                tq.set_postfix(loss='{:.5f}'.format(mean_loss))
+                loss.append(loss_temp.data[0])
+                mean_loss = np.mean(loss[-report_each:])
+                tq.set_postfix(loss_temp='{:.5f}'.format(mean_loss))
             #     if i and i % report_each == 0:
             #         write_event(log, step, loss=mean_loss)
             # write_event(log, step, loss=mean_loss)
@@ -834,9 +834,9 @@ def train(lr, model, criterion, train_loader, valid_loader, validation, init_opt
             valid_losses.append(valid_loss)
         except KeyboardInterrupt:
             tq.close()
-            print('Ctrl+C, saving snapshot')
+            print('keyboard interrupt')
             save(epoch)
-            print('done.')
+            print('finished.')
             return
 
 
@@ -853,7 +853,7 @@ def make_loader(in_df, batch_size, shuffle=False, transform=None):
         )
 
 train_loader = make_loader(train_df, batch_size =  BATCH_SIZE, shuffle=True, transform=train_transform)
-valid_loader = make_loader(valid_df, batch_size = BATCH_SIZE / 2, transform=None)
+valid_loader = make_loader(valid_df, batch_size = (int)BATCH_SIZE / 2, transform=None)
 
 
 # In[ ]:
@@ -865,7 +865,7 @@ train(init_optimizer=lambda lr: Adam(model.parameters(), lr=lr),
         lr = 1e-4,
         n_epochs = 3,
         model=model,
-        criterion=LossBinary(jaccard_weight=5),
+        criterion=LossBinary(weight=5),
         train_loader=train_loader,
         valid_loader=valid_loader,
         validation=validation,
