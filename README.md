@@ -13,7 +13,7 @@ test data: `/datasets/ee285f-public/airbus_ship_detection/test_v2/`
 
 To run the notebook, you need the following packages installed:
 - tensorflow
-- keras
+- pytorch
 - matplotlib
 - pandas
 - scikit.image
