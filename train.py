@@ -853,7 +853,7 @@ def make_loader(in_df, batch_size, shuffle=False, transform=None):
         )
 
 train_loader = make_loader(train_df, batch_size =  BATCH_SIZE, shuffle=True, transform=train_transform)
-valid_loader = make_loader(valid_df, batch_size = (int)BATCH_SIZE / 2, transform=None)
+valid_loader = make_loader(valid_df, batch_size = (int) (BATCH_SIZE / 2), transform=None)
 
 
 # In[ ]:
